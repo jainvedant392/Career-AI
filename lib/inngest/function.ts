@@ -6,7 +6,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 export const generateIndustryInsights = inngest.createFunction(
-  { name: "Generate Industry Insights" },
+  { id: "generate-industry-insights", name: "Generate Industry Insights" },
   { cron: "0 0 * * 0" },
   async ({ step }) => {
     const industries = await step.run("fetch industries", async () => {
@@ -44,6 +44,8 @@ export const generateIndustryInsights = inngest.createFunction(
         prompt
       );
 
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       const text = res.response.candidates[0].content.parts[0].text || "";
       const cleanedText = text.replace(/```(?:json)?\n?/g, "").trim();
       const insights = JSON.parse(cleanedText);

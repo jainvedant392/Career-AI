@@ -384,7 +384,7 @@ const ResumeBuilder = ({ initialContent }) => {
               value={previewContent}
               onChange={setPreviewContent}
               height={800}
-              preview={resumeMode === "preview" ? "live" : "edit"}
+              preview={resumeMode === "preview" ? "preview" : "edit"}
             />
           </div>
           <div className="hidden">
