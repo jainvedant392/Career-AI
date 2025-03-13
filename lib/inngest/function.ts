@@ -44,7 +44,15 @@ export const generateIndustryInsights = inngest.createFunction(
         prompt
       );
 
-      const text = res.response.candidates[0].content.parts[0].text || "";
+      // const text = res.response.candidates[0].content.parts[0].text || "";
+
+      // const part = res.response.candidates[0].content.parts[0];
+      // const text = "text" in part ? part.text : "";
+
+      const text =
+        (res.response.candidates[0].content.parts[0] as { text: string })
+          .text || "";
+
       const cleanedText = text.replace(/```(?:json)?\n?/g, "").trim();
       const insights = JSON.parse(cleanedText);
 
