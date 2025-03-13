@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
-import { renderToStaticMarkup } from "react-dom/server";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
@@ -22,7 +21,6 @@ import EntryForm from "./entryForm";
 import { entriesToMarkdown } from "@/app/lib/helper";
 import MDEditor from "@uiw/react-md-editor";
 import { useUser } from "@clerk/nextjs";
-import pdf from "html-pdf";
 import { toast } from "sonner";
 
 const ResumeBuilder = ({ initialContent }) => {
@@ -36,6 +34,7 @@ const ResumeBuilder = ({ initialContent }) => {
   const {
     control,
     register,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     handleSubmit,
     watch,
     formState: { errors },
