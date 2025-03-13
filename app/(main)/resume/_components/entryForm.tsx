@@ -83,7 +83,7 @@ const EntryForm = ({ type, entries, onChange }) => {
     const newEntries = entries.filter((_, i) => i !== index);
     onChange(newEntries);
   };
-  
+
   const handleImproveDescription = async () => {
     const description = watch("description");
     if (!description) {
@@ -141,8 +141,9 @@ const EntryForm = ({ type, entries, onChange }) => {
               <div className="space-y-2">
                 <Input
                   placeholder="Title/Position"
-                  {...register("title")}
-                  error={errors.title}
+                  name="title"
+                  {...register("title", { required: "Title is required" })}
+                  // error={errors.title}
                 />
                 {errors.title && (
                   <p className="text-sm text-red-500">{errors.title.message}</p>
@@ -151,8 +152,9 @@ const EntryForm = ({ type, entries, onChange }) => {
               <div className="space-y-2">
                 <Input
                   placeholder="Organization/Company"
-                  {...register("organization")}
-                  error={errors.organization}
+                  {...register("organization", {required: "Organization is required"})}
+                  name="organization"
+                  // error={errors.organization}
                 />
                 {errors.organization && (
                   <p className="text-sm text-red-500">
@@ -166,8 +168,9 @@ const EntryForm = ({ type, entries, onChange }) => {
               <div className="space-y-2">
                 <Input
                   type="month"
-                  {...register("startDate")}
-                  error={errors.startDate}
+                  {...register("startDate", { required: "Start date is required" })}
+                  name="startDate"
+                  // error={errors.startDate}
                 />
                 {errors.startDate && (
                   <p className="text-sm text-red-500">
@@ -179,8 +182,9 @@ const EntryForm = ({ type, entries, onChange }) => {
                 <Input
                   type="month"
                   disabled={current}
-                  {...register("endDate")}
-                  error={errors.endDate}
+                  {...register("endDate", { required: "End date is required" })}
+                  name="endDate"
+                  // error={errors.endDate}
                 />
                 {errors.endDate && (
                   <p className="text-sm text-red-500">
@@ -209,8 +213,9 @@ const EntryForm = ({ type, entries, onChange }) => {
               <Textarea
                 placeholder={`Description of your ${type.toLowerCase()}`}
                 className="h-32"
-                {...register("description")}
-                error={errors.description}
+                {...register("description", { required: "Description is required" })}
+                name="description"
+                // error={errors.description}
               />
               {errors.description && (
                 <p className="text-sm text-red-500">

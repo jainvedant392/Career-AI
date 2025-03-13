@@ -182,10 +182,11 @@ const ResumeBuilder = ({ initialContent }) => {
                 <div className="flex flex-col space-y-2">
                   <label className="text-sm font-medium">Email</label>
                   <Input
-                    {...register("contactInfo.email")}
+                    {...register("contactInfo.email", {required: "Email is required"})}
+                    name="email"
                     type="email"
                     placeholder="your@email.com"
-                    error={errors?.contactInfo?.email}
+                    // error={errors?.contactInfo?.email}
                   />
 
                   {errors?.contactInfo?.email && (
@@ -252,9 +253,11 @@ const ResumeBuilder = ({ initialContent }) => {
                 render={({ field }) => (
                   <Textarea
                     {...field}
+                    {...register("summary", {required: "Summary is required"})}
+                    name="summary"
                     className="h-32"
                     placeholder="Write a compelling professional summary..."
-                    error={errors.summary}
+                    // error={errors.summary}
                   />
                 )}
               />
@@ -271,9 +274,11 @@ const ResumeBuilder = ({ initialContent }) => {
                 render={({ field }) => (
                   <Textarea
                     {...field}
+                    {...register("skills", {required: "Skills are required"})}
+                    name="skills"
                     className="h-32"
                     placeholder="List your key skills..."
-                    error={errors.skills}
+                    // error={errors.skills}
                   />
                 )}
               />
@@ -379,7 +384,7 @@ const ResumeBuilder = ({ initialContent }) => {
               value={previewContent}
               onChange={setPreviewContent}
               height={800}
-              preview={resumeMode}
+              preview={resumeMode === "preview" ? "live" : "edit"}
             />
           </div>
           <div className="hidden">
