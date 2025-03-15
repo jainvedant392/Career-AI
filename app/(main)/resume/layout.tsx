@@ -1,3 +1,8 @@
+export const metadata = {
+  title: "Resume Builder",
+  description: "",
+}
+
 import React, { Suspense } from "react";
 import { BarLoader } from "react-spinners";
 

@@ -11,7 +11,7 @@ import Image from "next/image";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "AI Career Coach",
+  title: "Career AI",
   description: "",
 };
 

@@ -1,3 +1,8 @@
+export const metadata = {
+  title: "Mock Interview",
+  description: "",
+};
+
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";

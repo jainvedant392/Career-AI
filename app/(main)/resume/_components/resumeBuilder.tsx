@@ -4,6 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
   AlertTriangle,
   Download,
   Edit,
@@ -28,6 +34,7 @@ const ResumeBuilder = ({ initialContent }) => {
   const [resumeMode, setResumeMode] = useState("preview");
   const [previewContent, setPreviewContent] = useState(initialContent);
   const [isPDFGenerating, setIsPDFGenerating] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const { user } = useUser();
   const pdfRef = useRef(null);
 
@@ -58,6 +65,17 @@ const ResumeBuilder = ({ initialContent }) => {
   } = useFetch(saveResume);
 
   const formValues = watch();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768); // Adjust breakpoint as needed
+    };
+
+    handleResize(); // Set initial state
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     if (initialContent) setActiveTab("preview");
@@ -100,16 +118,20 @@ const ResumeBuilder = ({ initialContent }) => {
       .join("\n\n");
   };
 
-  const generatePDF = async () => {
-    setIsPDFGenerating(true);
+  const generatePDF = () => {
+    toast.error("PDF generation service is currently unavailable.");
+  }
 
-    try {
-    } catch (error) {
-      console.error("PDF generation error: ", error);
-    } finally {
-      setIsPDFGenerating(false);
-    }
-  };
+  // const generatePDF = async () => {
+  //   setIsPDFGenerating(true);
+
+  //   try {
+  //   } catch (error) {
+  //     console.error("PDF generation error: ", error);
+  //   } finally {
+  //     setIsPDFGenerating(false);
+  //   }
+  // };
 
   useEffect(() => {
     if (saveResult && !isSaving) {
@@ -149,10 +171,10 @@ const ResumeBuilder = ({ initialContent }) => {
               </>
             )}
           </Button>
+
           <Button
             onClick={generatePDF}
-            // disabled={isPDFGenerating}
-            disabled
+            disabled={isPDFGenerating}
           >
             {isPDFGenerating ? (
               <>
@@ -182,7 +204,9 @@ const ResumeBuilder = ({ initialContent }) => {
                 <div className="flex flex-col space-y-2">
                   <label className="text-sm font-medium">Email</label>
                   <Input
-                    {...register("contactInfo.email", {required: "Email is required"})}
+                    {...register("contactInfo.email", {
+                      required: "Email is required",
+                    })}
                     name="email"
                     type="email"
                     placeholder="your@email.com"
@@ -253,7 +277,9 @@ const ResumeBuilder = ({ initialContent }) => {
                 render={({ field }) => (
                   <Textarea
                     {...field}
-                    {...register("summary", {required: "Summary is required"})}
+                    {...register("summary", {
+                      required: "Summary is required",
+                    })}
                     name="summary"
                     className="h-32"
                     placeholder="Write a compelling professional summary..."
@@ -274,7 +300,7 @@ const ResumeBuilder = ({ initialContent }) => {
                 render={({ field }) => (
                   <Textarea
                     {...field}
-                    {...register("skills", {required: "Skills are required"})}
+                    {...register("skills", { required: "Skills are required" })}
                     name="skills"
                     className="h-32"
                     placeholder="List your key skills..."

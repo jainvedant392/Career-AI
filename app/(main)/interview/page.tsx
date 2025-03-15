@@ -1,3 +1,8 @@
+export const metadata = {
+  title: "Interview Preparation",
+  description: "",
+};
+
 import { getAssessments } from "@/actions/interview";
 import StatsCards from "./_components/statsCards";
 import QuizList from "./_components/quizList";
