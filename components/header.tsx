@@ -27,13 +27,9 @@ const Header = async () => {
       <header className="fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-50 supports-[backdrop-filter]:bg-background/60">
         <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/">
-            <Image
-              className="h-20 w-45 object-contain"
-              src="/logo-1.webp"
-              alt="AI Career Coach"
-              width={45}
-              height={20}
-            />
+            <p className="text-3xl font-bold bg-gradient-to-r from-gray-400 via-gray-200 to-gray-400 text-transparent bg-clip-text">
+              Career AI
+            </p>
           </Link>
 
           {/* Action Buttons */}

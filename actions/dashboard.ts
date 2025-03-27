@@ -7,9 +7,13 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-export const generateAIInsights = async (industry) => {
+export const generateAIInsights = async (data) => {
   const prompt = `
-          Analyze the current state of the ${industry} industry and provide insights in ONLY the following JSON format without any additional notes or explanations:
+          Analyze the current state of the ${data.industry} industry, also considering other parameters of a working professional like: 
+          skills: ${data.skills.join(", ")},
+          bio: ${data.bio},
+          years of experience: ${data.experience},
+          and provide insights in ONLY the following JSON format without any additional notes or explanations:
           {
             "salaryRanges": [
               { "role": "string", "min": number, "max": number, "median": number, "location": "string" }
@@ -52,7 +56,13 @@ export async function getIndustryInsights() {
   // If no insights exist, generate them
   if (!user.industryInsight) {
     console.log("Generating insights for", user);
-    const insights = await generateAIInsights(user.industry);
+    const data = {
+      industry: user.industry,
+      skills: user.skills,
+      bio: user.bio,
+      experience: user.experience,
+    }
+    const insights = await generateAIInsights(data);
 
     const industryInsight = await db.industryInsight.create({
       data: {
